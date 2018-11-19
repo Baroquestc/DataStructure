@@ -1,7 +1,3 @@
-![](http://upload-images.jianshu.io/upload_images/9738807-5ae0c487d88abd75.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50)
-
-
-
 最小生成树是带权无向连通图中权值最小的生成树，根据[图](https://www.jianshu.com/p/bbf0277a077d)中生成树定义可知，$|V|$ 个顶点的连通图中，生成树中边的个数为 $|V|-1$，向生成树中添加任意一条边，则会形成环。生成树存在多种，其中权值之和最小的生成树即为最小生成树。
 
 > 最小生成树保证最小权值是固定的，但是最小生成树可能有多个。
@@ -70,7 +66,7 @@
 
 1. ```kruskal``` 算法示例
 
-```
+```python
 def kruskal(graph):
     edges, vertices = getEdgesFromAdjacencyList(graph), [i for i in range(graph.number)]
     sort(edges, 0, len(edges) - 1)

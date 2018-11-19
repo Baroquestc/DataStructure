@@ -1,7 +1,3 @@
-![](http://upload-images.jianshu.io/upload_images/9738807-a31a5c6cc16432f9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50)
-
-
-
 
 红黑树是一种自平衡二叉查找树，与 AVL 树类似，提供 $O(log N)$ 级别的查询、插入和删除节点复杂度。相对于 AVL 树单纯的对每个节点的平衡因子进行判断，红黑树给节点赋予了颜色属性，并通过对树中节点的颜色进行限制，来保持整棵树的平衡。
 

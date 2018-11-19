@@ -1,9 +1,5 @@
 
 
-![](https://upload-images.jianshu.io/upload_images/9738807-617a69ff54160e51.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-
 ## 定义 ##
 
 二叉树( binary tree )是有限节点集合构成的结构，其结构的递归定义为：

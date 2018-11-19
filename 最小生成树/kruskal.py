@@ -48,4 +48,5 @@ if __name__ == '__main__':
     graph.insert(7, 8, 1)
     graph.insert(7, 9, 6)
     graph.insert(8, 9, 7)
-    kruskal(graph)
+    # kruskal(graph)
+    print(kruskal(graph))

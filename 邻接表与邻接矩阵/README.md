@@ -1,6 +1,3 @@
-
-![](http://upload-images.jianshu.io/upload_images/9738807-5de5fd6ee70c4f7e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50)
-
 邻接表和邻接矩阵是图的两种常用存储表示方式，用于记录图中任意两个顶点之间的连通关系，包括权值。
 
 > 对于图 $G=(V, E)$ 而言，其中 $V$ 表示顶点集合，$E$ 表示边集合。
@@ -52,92 +49,7 @@ $E =\{<1,2>,<1,3>,<1,4>,<2,3>,<3,1>,<3,5>,<4,3>\} $
 
 ### 代码附录
 
-#####邻接表结构
+[邻接表结构](./adjacencyList.py)
 
-```
-# graph node definition
-class Node(object):
-    def __init__(self, index, weight, next = None):
-        self.index = index
-        self.weight = weight
-        self.next = next
+[邻接矩阵结构](./adjacencyMatrix.py)
 
-# adjacency list definition
-class AdjacencyList(object):
-    def __init__(self, number):
-        self.number = number
-        self.list = [None] * number
-
-    # insert node
-    def insert(self, origin, index, weight = 1):
-        node = Node(index, weight, self.list[origin - 1])
-        self.list[origin - 1] = node
-```
-测试代码：
-```
-if __name__ == '__main__':
-    graph = AdjacencyList(5)
-    graph.insert(1, 2)
-    graph.insert(1, 3)
-    graph.insert(1, 4)
-    graph.insert(2, 3)
-    graph.insert(3, 1)
-    graph.insert(3, 5)
-    graph.insert(4, 3)
-    for i in range(graph.number):
-        print('node', (i + 1), 'links:', end = ' ')
-        node = graph.list[i]
-        while node:
-            print(node.index, end = ' ')
-            node = node.next
-        print()
-```
-输出结果：
-```
-node 1 links: 4 3 2 
-node 2 links: 3 
-node 3 links: 5 1 
-node 4 links: 3 
-node 5 links: 
-```
-
-#####邻接矩阵结构
-
-```
-# adjacency list definition
-class AdjacencyMatrix(object):
-    def __init__(self, number):
-        self.number = number
-        self.list = [[None] * number for i in range(number)]
-
-    # insert node
-    def insert(self, origin, index, weight = 1):
-        self.list[origin - 1][index - 1] = weight
-```
-测试代码：
-```
-if __name__ == '__main__':
-    graph = AdjacencyMatrix(5)
-    graph.insert(1, 2)
-    graph.insert(1, 3)
-    graph.insert(1, 4)
-    graph.insert(2, 3)
-    graph.insert(3, 1)
-    graph.insert(3, 5)
-    graph.insert(4, 3)
-    for i in range(graph.number):
-        print('node', (i + 1), 'links:', end = ' ')
-        j = 0
-        while j < graph.number:
-            print(j + 1, end = ' ') if graph.list[i][j] else None
-            j += 1
-        print()
-```
-输出结果：
-```
-node 1 links: 2 3 4 
-node 2 links: 3 
-node 3 links: 1 5 
-node 4 links: 3 
-node 5 links: 
-```

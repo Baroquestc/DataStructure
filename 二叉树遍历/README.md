@@ -1,5 +1,3 @@
-![](https://upload-images.jianshu.io/upload_images/9738807-2e322d8379cb8ac4.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
 ### 遍历方式
 二叉树的常见遍历方式如下几种：
 * **前序遍历：** 访问根节点，前序遍历方式访问左子树，前序遍历方式访问右子树；

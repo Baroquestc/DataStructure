@@ -1,13 +1,142 @@
-![](https://upload-images.jianshu.io/upload_images/9738807-a45fc15e6284eb53.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+## 1 定义
+
+  二叉搜索树(Binary Search Tree)，又名二叉排序树(Binary Sort Tree)。
+  二叉搜索树是具有有以下性质的二叉树：
+  （1）若左子树不为空，则左子树上所有节点的值均小于或等于它的根节点的值。
+  （2）若右子树不为空，则右子树上所有节点的值均大于或等于它的根节点的值。
+  （3）左、右子树也分别为二叉搜索树。
+
+------
+
+## 2 相关操作
+
+### 2.1 插入
+
+  从根节点开始，若插入的值比根节点的值小，则将其插入根节点的左子树；若比根节点的值大，则将其插入根节点的右子树。该操作可使用递归进行实现。
+       ![img](https://images2018.cnblogs.com/blog/1238724/201805/1238724-20180531192858758-1656801492.jpg)
+
+程序代码：
+
+```python
+	def insert(self, root, val):
+		'''二叉搜索树插入操作'''
+		if root == None:
+			root = TreeNode(val)
+		elif val < root.val:
+			root.left = self.insert(root.left, val)
+		elif val > root.val:
+			root.right = self.insert(root.right, val)
+		return root
+```
+
+### 2.2 查询
+
+  从根节点开始查找，待查找的值是否与根节点的值相同，若相同则返回True；否则，判断待寻找的值是否比根节点的值小，若是则进入根节点左子树进行查找，否则进入右子树进行查找。该操作使用递归实现。
+
+程序代码：
+
+```python
+	def query(self, root, val):
+		'''二叉搜索树查询操作'''
+		if root == None:
+			return False
+		if root.val == val:
+			return True
+		elif val < root.val:
+			return self.query(root.left, val)
+		elif val > root.val:
+			return self.query(root.right, val)
+```
+
+### 2.3 查找最大（小值）
+
+  （1）查找最小值：从根节点开始，沿着左子树一直往下，直到找到最后一个左子树节点，按照定义可知，该节点一定是该二叉搜索树中的最小值节点。
+程序代码：
+
+```python
+	def findMin(self, root):
+		'''查找二叉搜索树中最小值点'''
+		if root.left:
+			return self.findMin(root.left)
+		else:
+			return root
+```
+
+  （2）查找最大值：从根节点开始，沿着右子树一直往下，直到找到最后一个右子树节点，按照定义可知，该节点一定是该二叉搜索树中的最大值节点。
+程序代码：
+
+```python
+	def findMax(self, root):
+		'''查找二叉搜索树中最大值点'''
+		if root.right:
+			return self.findMax(root.right)
+		else:
+			return root
+```
+
+### 2.4 删除节点
+
+  对二叉搜索树节点的删除操作分为以下三种情况：
+  （1）待删除节点既无左子树也无右子树：直接删除该节点即可
+       ![img](https://images2018.cnblogs.com/blog/1238724/201805/1238724-20180531194121389-1602063486.jpg)
+
+  （2）待删除节点只有左子树或者只有右子树：将其左子树或右子树根节点代替待删除节点
+       ![img](https://images2018.cnblogs.com/blog/1238724/201805/1238724-20180531194131577-1734529952.jpg)
+
+  （3）待删除节点既有左子树也有右子树：找到该节点右子树中最小值节点，使用该节点代替待删除节点，然后在右子树中删除最小值节点。
+       ![img](https://images2018.cnblogs.com/blog/1238724/201805/1238724-20180531194139016-423955445.jpg)
+
+程序代码：
+
+```python
+	def delNode(self, root, val):
+		'''删除二叉搜索树中值为val的点'''
+		if root == None:
+			return 
+		if val < root.val:
+			root.left = self.delNode(root.left, val)
+		elif val > root.val:
+			root.right = self.delNode(root.right, val)
+		# 当val == root.val时，分为三种情况：只有左子树或者只有右子树、有左右子树、即无左子树又无右子树
+		else:
+			if root.left and root.right:
+				# 既有左子树又有右子树，则需找到右子树中最小值节点
+				temp = self.findMin(root.right)
+				root.val = temp.val
+				# 再把右子树中最小值节点删除
+				root.right = self.delNode(root.right, temp.val)
+			elif root.right == None and root.left == None:
+				# 左右子树都为空
+				root = None
+			elif root.right == None:
+				# 只有左子树
+				root = root.left
+			elif root.left == None:
+				# 只有右子树
+				root = root.right
+		return root
+```
+
+### 2.5 打印
+
+  实现二叉搜索树的中序遍历，并打印出来。该方法打印出来的数列将是按照递增顺序排列。
+
+程序代码：
+
+```python
+	def printTree(self, root):
+		# 打印二叉搜索树(中序打印，有序数列)
+		if root == None:
+			return 
+		self.printTree(root.left)
+		print(root.val, end = ' ')
+		self.printTree(root.right)
+```
 
 
-
-> 二分法猜数字的游戏应该每个人都知道，通过对猜测数字“大了”、“小了”的情况判断，来猜出最终的数字。序列范围为 $n$ 的集合，复杂度为 $O(log_2 n)$，即最多需要 $log_2 n$ 次可以猜到最终数字。
-
-### 引子
-二分法的查找过程是，在一个有序的序列中，每次都会选择有效范围中间位置的元素作判断，即每次判断后，都可以排除近一半的元素，直到查找到目标元素或返回不存在，所以 $n$ 个有序元素构成的序列，查找的时间复杂度为 $O(log_2 n)$。既然线性结构能够做到查询复杂度为 $O(log_2 n)$ 级别，那二叉搜索树产生又有何必要呢？毕竟二叉搜索树的查询复杂度只是介于 $O(log_2 n)$~$O(n)$ 之间，并不存在查询优势。
 
 ### 定义
+
 二叉搜索树是一种节点值之间具有一定数量级次序的二叉树，对于树中每个节点：
 * 若其左子树存在，则其左子树中每个节点的值都不大于该节点值；
 * 若其右子树存在，则其右子树中每个节点的值都不小于该节点值。
@@ -95,7 +224,7 @@
 > python版本：3.7，树中的遍历、节点插入和删除操作使用的是递归形式
 
 * 树节点定义
-```
+```python
 # tree node definition
 class Node(object):
     def __init__(self, value, lchild=None, rchild=None):
@@ -105,7 +234,7 @@ class Node(object):
 ```
 
 * 树定义
-```
+```python
 # tree definition
 class Tree(object):
     def __init__(self, root=None):
@@ -124,7 +253,7 @@ class Tree(object):
         self.root = delete(self.root, value)
 ```
 * 模块中对树结构中的函数进行实现
-```
+```python
 # node in-order traversal(LDR)
 def traversal(node):
     if not node:
@@ -163,7 +292,7 @@ def delete(root, value):
     return root
 ```
 * 测试代码与输出
-```
+```python
 if __name__ == '__main__':
     arr = [5, 3, 4, 0, 2, 1, 8, 6, 9, 7]
     T = Tree()
@@ -179,7 +308,7 @@ if __name__ == '__main__':
         print()
 ```
 输出结果为：
-```
+```python
 BST in-order traversal------------------
 0 1 2 3 4 5 6 7 8 9 
 delete test------------------
